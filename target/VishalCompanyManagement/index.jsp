@@ -1,48 +1,174 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
+
 <head>
-    <meta charset="UTF-8">
+
     <title>Vishal Technologies</title>
 
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/style.css">
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            text-align: center;
-            padding-top: 100px;
+
+        .dashboard {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
         }
 
-        .container {
+        .card {
             background: white;
-            width: 600px;
-            margin: auto;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+            padding: 30px;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 2px 8px
+                rgba(0,0,0,0.08);
         }
 
-        h1 {
-            margin-bottom: 10px;
+        .card h3 {
+            margin-top: 0;
         }
 
-        p {
-            color: #555;
-            font-size: 18px;
+        .card a {
+            display: inline-block;
+
+            margin-top: 15px;
+
+            text-decoration: none;
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-<div class="container">
+<header class="header">
 
-    <h1>Welcome to Vishal Technologies</h1>
+    <div>
 
-    <p>Company Management System</p>
+        <h1>Vishal Technologies</h1>
 
-    <p>Day 1 - Project Foundation</p>
+        <p>Company Management System</p>
 
-</div>
+    </div>
+
+
+    <nav>
+
+        <a href="${pageContext.request.contextPath}/">
+            Home
+        </a>
+
+        <a href="${pageContext.request.contextPath}/employees">
+            Employees
+        </a>
+
+        <a href="${pageContext.request.contextPath}/addEmployee.jsp">
+            Add Employee
+        </a>
+
+        <a href="${pageContext.request.contextPath}/searchEmployee.jsp">
+            Search
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="container">
+
+    <div class="page-header">
+
+        <div>
+
+            <h2>Company Dashboard</h2>
+
+            <p>
+                Welcome to Vishal Technologies
+                Company Management System
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="dashboard">
+
+
+        <div class="card">
+
+            <h3>👨‍💼 Employee Management</h3>
+
+            <p>
+                Manage employee information,
+                departments and designations.
+            </p>
+
+            <a href="${pageContext.request.contextPath}/employees"
+               class="btn btn-primary">
+
+                View Employees
+
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>➕ Add Employee</h3>
+
+            <p>
+                Add a new employee to
+                Vishal Technologies.
+            </p>
+
+            <a href="${pageContext.request.contextPath}/addEmployee.jsp"
+               class="btn btn-primary">
+
+                Add Employee
+
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>🔎 Search Employee</h3>
+
+            <p>
+                Quickly find employees
+                using employee information.
+            </p>
+
+            <a href="${pageContext.request.contextPath}/searchEmployee.jsp"
+               class="btn btn-primary">
+
+                Search Employee
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+</main>
 
 </body>
+
 </html>

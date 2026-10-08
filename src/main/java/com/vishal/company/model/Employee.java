@@ -22,37 +22,6 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(int employeeId,
-                    String employeeCode,
-                    String firstName,
-                    String lastName,
-                    String email,
-                    String phone,
-                    String gender,
-                    LocalDate dateOfBirth,
-                    int departmentId,
-                    String departmentName,
-                    String designation,
-                    LocalDate joiningDate,
-                    double salary,
-                    String status) {
-
-        this.employeeId = employeeId;
-        this.employeeCode = employeeCode;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.gender = gender;
-        this.dateOfBirth = dateOfBirth;
-        this.departmentId = departmentId;
-        this.departmentName = departmentName;
-        this.designation = designation;
-        this.joiningDate = joiningDate;
-        this.salary = salary;
-        this.status = status;
-    }
-
     public int getEmployeeId() {
         return employeeId;
     }
