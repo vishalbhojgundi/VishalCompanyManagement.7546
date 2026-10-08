@@ -1,6 +1,6 @@
 package com.vishal.company.model;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Employee {
 
@@ -11,16 +11,26 @@ public class Employee {
     private String email;
     private String phone;
     private String gender;
-    private LocalDate dateOfBirth;
+    private Date dateOfBirth;
     private int departmentId;
     private String departmentName;
     private String designation;
-    private LocalDate joiningDate;
+    private Date joiningDate;
     private double salary;
     private String status;
 
+
+    // ==============================
+    // CONSTRUCTOR
+    // ==============================
+
     public Employee() {
     }
+
+
+    // ==============================
+    // EMPLOYEE ID
+    // ==============================
 
     public int getEmployeeId() {
         return employeeId;
@@ -30,6 +40,11 @@ public class Employee {
         this.employeeId = employeeId;
     }
 
+
+    // ==============================
+    // EMPLOYEE CODE
+    // ==============================
+
     public String getEmployeeCode() {
         return employeeCode;
     }
@@ -37,6 +52,11 @@ public class Employee {
     public void setEmployeeCode(String employeeCode) {
         this.employeeCode = employeeCode;
     }
+
+
+    // ==============================
+    // FIRST NAME
+    // ==============================
 
     public String getFirstName() {
         return firstName;
@@ -46,6 +66,11 @@ public class Employee {
         this.firstName = firstName;
     }
 
+
+    // ==============================
+    // LAST NAME
+    // ==============================
+
     public String getLastName() {
         return lastName;
     }
@@ -53,6 +78,11 @@ public class Employee {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+
+    // ==============================
+    // EMAIL
+    // ==============================
 
     public String getEmail() {
         return email;
@@ -62,6 +92,11 @@ public class Employee {
         this.email = email;
     }
 
+
+    // ==============================
+    // PHONE
+    // ==============================
+
     public String getPhone() {
         return phone;
     }
@@ -69,6 +104,11 @@ public class Employee {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+
+    // ==============================
+    // GENDER
+    // ==============================
 
     public String getGender() {
         return gender;
@@ -78,13 +118,23 @@ public class Employee {
         this.gender = gender;
     }
 
-    public LocalDate getDateOfBirth() {
+
+    // ==============================
+    // DATE OF BIRTH
+    // ==============================
+
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+
+
+    // ==============================
+    // DEPARTMENT ID
+    // ==============================
 
     public int getDepartmentId() {
         return departmentId;
@@ -94,6 +144,11 @@ public class Employee {
         this.departmentId = departmentId;
     }
 
+
+    // ==============================
+    // DEPARTMENT NAME
+    // ==============================
+
     public String getDepartmentName() {
         return departmentName;
     }
@@ -101,6 +156,11 @@ public class Employee {
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
     }
+
+
+    // ==============================
+    // DESIGNATION
+    // ==============================
 
     public String getDesignation() {
         return designation;
@@ -110,13 +170,23 @@ public class Employee {
         this.designation = designation;
     }
 
-    public LocalDate getJoiningDate() {
+
+    // ==============================
+    // JOINING DATE
+    // ==============================
+
+    public Date getJoiningDate() {
         return joiningDate;
     }
 
-    public void setJoiningDate(LocalDate joiningDate) {
+    public void setJoiningDate(Date joiningDate) {
         this.joiningDate = joiningDate;
     }
+
+
+    // ==============================
+    // SALARY
+    // ==============================
 
     public double getSalary() {
         return salary;
@@ -125,6 +195,11 @@ public class Employee {
     public void setSalary(double salary) {
         this.salary = salary;
     }
+
+
+    // ==============================
+    // STATUS
+    // ==============================
 
     public String getStatus() {
         return status;

@@ -10,98 +10,233 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.sql.Date;
 
 @WebServlet("/add-employee")
 public class EmployeeAddServlet extends HttpServlet {
 
-    private EmployeeDAO employeeDAO;
+    private final EmployeeDAO employeeDAO = new EmployeeDAO();
+
+    // =========================================================
+    // SHOW ADD EMPLOYEE PAGE
+    // =========================================================
 
     @Override
-    public void init() {
-        employeeDAO = new EmployeeDAO();
-    }
-
-    @Override
-    protected void doPost(
-            HttpServletRequest request,
-            HttpServletResponse response)
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setCharacterEncoding("UTF-8");
+        request.getRequestDispatcher("/addEmployee.jsp")
+                .forward(request, response);
+    }
 
-        Employee employee = new Employee();
 
-        employee.setEmployeeCode(
-                request.getParameter("employeeCode")
-        );
+    // =========================================================
+    // ADD EMPLOYEE
+    // =========================================================
 
-        employee.setFirstName(
-                request.getParameter("firstName")
-        );
+    @Override
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response)
+            throws ServletException, IOException {
 
-        employee.setLastName(
-                request.getParameter("lastName")
-        );
+        try {
 
-        employee.setEmail(
-                request.getParameter("email")
-        );
+            // ---------------------------------------------
+            // READ FORM DATA
+            // ---------------------------------------------
 
-        employee.setPhone(
-                request.getParameter("phone")
-        );
+            String employeeCode =
+                    request.getParameter("employeeCode");
 
-        employee.setGender(
-                request.getParameter("gender")
-        );
+            String firstName =
+                    request.getParameter("firstName");
 
-        String dob = request.getParameter("dateOfBirth");
+            String lastName =
+                    request.getParameter("lastName");
 
-        if (dob != null && !dob.isBlank()) {
-            employee.setDateOfBirth(
-                    LocalDate.parse(dob)
+            String email =
+                    request.getParameter("email");
+
+            String phone =
+                    request.getParameter("phone");
+
+            String gender =
+                    request.getParameter("gender");
+
+            String dateOfBirth =
+                    request.getParameter("dateOfBirth");
+
+            String departmentId =
+                    request.getParameter("departmentId");
+
+            String designation =
+                    request.getParameter("designation");
+
+            String joiningDate =
+                    request.getParameter("joiningDate");
+
+            String salary =
+                    request.getParameter("salary");
+
+            String status =
+                    request.getParameter("status");
+
+
+            // ---------------------------------------------
+            // BASIC VALIDATION
+            // ---------------------------------------------
+
+            if (employeeCode == null || employeeCode.isBlank()
+                    || firstName == null || firstName.isBlank()
+                    || email == null || email.isBlank()
+                    || departmentId == null || departmentId.isBlank()
+                    || joiningDate == null || joiningDate.isBlank()) {
+
+                response.sendRedirect(
+                        request.getContextPath()
+                                + "/addEmployee.jsp?error=validation"
+                );
+
+                return;
+            }
+
+
+            // ---------------------------------------------
+            // CREATE EMPLOYEE OBJECT
+            // ---------------------------------------------
+
+            Employee employee = new Employee();
+
+            employee.setEmployeeCode(employeeCode);
+
+            employee.setFirstName(firstName);
+
+            employee.setLastName(lastName);
+
+            employee.setEmail(email);
+
+            employee.setPhone(phone);
+
+            employee.setGender(gender);
+
+
+            // ---------------------------------------------
+            // DATE OF BIRTH
+            // ---------------------------------------------
+
+            if (dateOfBirth != null
+                    && !dateOfBirth.isBlank()) {
+
+                employee.setDateOfBirth(
+                        Date.valueOf(dateOfBirth)
+                );
+            }
+
+
+            // ---------------------------------------------
+            // DEPARTMENT
+            // ---------------------------------------------
+
+            employee.setDepartmentId(
+                    Integer.parseInt(departmentId)
             );
-        }
 
-        employee.setDepartmentId(
-                Integer.parseInt(
-                        request.getParameter("departmentId")
-                )
-        );
 
-        employee.setDesignation(
-                request.getParameter("designation")
-        );
+            // ---------------------------------------------
+            // DESIGNATION
+            // ---------------------------------------------
 
-        employee.setJoiningDate(
-                LocalDate.parse(
-                        request.getParameter("joiningDate")
-                )
-        );
+            employee.setDesignation(designation);
 
-        employee.setSalary(
-                Double.parseDouble(
-                        request.getParameter("salary")
-                )
-        );
 
-        employee.setStatus(
-                request.getParameter("status")
-        );
+            // ---------------------------------------------
+            // JOINING DATE
+            // ---------------------------------------------
 
-        boolean success =
-                employeeDAO.addEmployee(employee);
+            employee.setJoiningDate(
+                    Date.valueOf(joiningDate)
+            );
 
-        if (success) {
+
+            // ---------------------------------------------
+            // SALARY
+            // ---------------------------------------------
+
+            if (salary != null && !salary.isBlank()) {
+
+                employee.setSalary(
+                        Double.parseDouble(salary)
+                );
+
+            } else {
+
+                employee.setSalary(0);
+            }
+
+
+            // ---------------------------------------------
+            // STATUS
+            // ---------------------------------------------
+
+            if (status == null || status.isBlank()) {
+
+                employee.setStatus("ACTIVE");
+
+            } else {
+
+                employee.setStatus(status);
+            }
+
+
+            // ---------------------------------------------
+            // SAVE EMPLOYEE
+            // ---------------------------------------------
+
+            boolean added =
+                    employeeDAO.addEmployee(employee);
+
+
+            if (added) {
+
+                response.sendRedirect(
+                        request.getContextPath()
+                                + "/employees?success=added"
+                );
+
+            } else {
+
+                response.sendRedirect(
+                        request.getContextPath()
+                                + "/addEmployee.jsp?error=failed"
+                );
+            }
+
+        } catch (NumberFormatException e) {
+
+            e.printStackTrace();
+
             response.sendRedirect(
                     request.getContextPath()
-                            + "/employees"
+                            + "/addEmployee.jsp?error=invalid"
             );
-        } else {
+
+        } catch (IllegalArgumentException e) {
+
+            e.printStackTrace();
+
             response.sendRedirect(
                     request.getContextPath()
-                            + "/addEmployee.jsp?error=true"
+                            + "/addEmployee.jsp?error=invalid"
+            );
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            response.sendRedirect(
+                    request.getContextPath()
+                            + "/addEmployee.jsp?error=failed"
             );
         }
     }
