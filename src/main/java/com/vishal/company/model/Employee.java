@@ -208,4 +208,36 @@ public class Employee {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public String getDepartmentNameById(int departmentId) {
+
+        String sql = """
+            SELECT department_name
+            FROM departments
+            WHERE department_id = ?
+            """;
+
+        try (java.sql.Connection connection =
+                     com.vishal.company.util.DBConnection.getConnection();
+             java.sql.PreparedStatement statement =
+                     connection.prepareStatement(sql)) {
+
+            statement.setInt(1, departmentId);
+
+            try (java.sql.ResultSet resultSet =
+                         statement.executeQuery()) {
+
+                if (resultSet.next()) {
+                    return resultSet.getString("department_name");
+                }
+            }
+
+        } catch (java.sql.SQLException e) {
+            throw new RuntimeException(
+                    "Failed to retrieve department name", e);
+        }
+
+        return "Unknown Department";
+    }
+
 }

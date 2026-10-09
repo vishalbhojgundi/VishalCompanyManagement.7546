@@ -159,6 +159,11 @@
                                 Delete
                             </a>
 
+<a href="${pageContext.request.contextPath}/employee-details?id=${employee.employeeId}">
+    View
+</a>
+
+
                         </div>
 
                     </td>

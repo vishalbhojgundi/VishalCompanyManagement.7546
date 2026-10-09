@@ -4,6 +4,7 @@ com\vishal\company\controller\EmployeeEditServlet.class
 com\vishal\company\controller\EmployeeAddServlet.class
 com\vishal\company\controller\EmployeeListServlet.class
 com\vishal\company\controller\EmployeeSearchServlet.class
+com\vishal\company\controller\EmployeeDetailsServlet.class
 com\vishal\company\dao\EmployeeDAO.class
 com\vishal\company\model\Employee.class
 com\vishal\company\controller\DatabaseTestServlet.class
