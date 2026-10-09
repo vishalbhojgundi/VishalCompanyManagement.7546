@@ -475,3 +475,150 @@ tbody tr:hover {
 .btn-secondary:hover {
     background: #4b5563;
 }
+
+/* Department Management page */
+
+.container {
+    max-width: 1450px;
+    margin: 35px auto;
+    padding: 0 25px;
+}
+
+.container header {
+    background: #172338;
+    color: #ffffff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.container header h1 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.container header p {
+    margin-bottom: 0;
+}
+
+.container nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-bottom: 25px;
+}
+
+.container nav a {
+    color: #2458d3;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.container main {
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.container main h2 {
+    color: #172338;
+    margin-top: 0;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-container th,
+.table-container td {
+    padding: 13px 15px;
+    border-bottom: 1px solid #e4e8ef;
+    text-align: left;
+}
+
+.table-container th {
+    background: #f0f4fa;
+    color: #172338;
+}
+
+.table-container tr:hover {
+    background: #f8faff;
+}
+
+.btn {
+    display: inline-block;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin: 3px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: #2864e8;
+    color: #ffffff;
+}
+
+.btn-edit {
+    background: #e5edff;
+    color: #194ab5;
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: #ffffff;
+}
+
+.success {
+    padding: 12px;
+    background: #e6f7ec;
+    color: #176b37;
+    border-radius: 6px;
+}
+
+.error {
+    padding: 12px;
+    background: #fdeaea;
+    color: #a32020;
+    border-radius: 6px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid #ccd3df;
+    border-radius: 6px;
+    font: inherit;
+}
+
+@media (max-width: 700px) {
+    .container {
+        padding: 0 12px;
+    }
+
+    .container main {
+        padding: 15px;
+    }
+}

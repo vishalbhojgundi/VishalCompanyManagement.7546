@@ -1,10 +1,16 @@
 com\vishal\company\util\DBConnection.class
+com\vishal\company\controller\DepartmentEditServlet.class
+com\vishal\company\controller\EmployeeAddServlet.class
+com\vishal\company\controller\DepartmentAddServlet.class
+com\vishal\company\controller\DepartmentDeleteServlet.class
 com\vishal\company\controller\EmployeeDeleteServlet.class
 com\vishal\company\controller\EmployeeEditServlet.class
-com\vishal\company\controller\EmployeeAddServlet.class
+com\vishal\company\dao\DepartmentDAO.class
 com\vishal\company\controller\EmployeeListServlet.class
 com\vishal\company\controller\EmployeeSearchServlet.class
+com\vishal\company\controller\DepartmentListServlet.class
 com\vishal\company\controller\EmployeeDetailsServlet.class
 com\vishal\company\dao\EmployeeDAO.class
 com\vishal\company\model\Employee.class
 com\vishal\company\controller\DatabaseTestServlet.class
+com\vishal\company\model\Department.class

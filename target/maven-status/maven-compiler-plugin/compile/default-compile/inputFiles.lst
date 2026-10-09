@@ -1,10 +1,16 @@
 D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\DatabaseTestServlet.java
+D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\DepartmentAddServlet.java
+D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\DepartmentDeleteServlet.java
+D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\DepartmentEditServlet.java
+D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\DepartmentListServlet.java
 D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\EmployeeAddServlet.java
 D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\EmployeeDeleteServlet.java
 D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\EmployeeDetailsServlet.java
 D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\EmployeeEditServlet.java
 D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\EmployeeListServlet.java
 D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\EmployeeSearchServlet.java
+D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\dao\DepartmentDAO.java
 D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\dao\EmployeeDAO.java
+D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\model\Department.java
 D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\model\Employee.java
 D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\util\DBConnection.java
