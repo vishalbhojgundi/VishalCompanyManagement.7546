@@ -894,3 +894,46 @@ button:disabled,
         font-size: 11px;
     }
 }
+
+/* Company Management page refinements */
+.table-card {
+    margin-top: 18px;
+}
+
+.table-card .table-container {
+    border: 0;
+    border-radius: 0 0 12px 12px;
+}
+
+.table-card table {
+    min-width: 1050px;
+}
+
+.table-card .action-buttons .btn {
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.employee-form {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 26px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+}
+
+.employee-form .form-actions {
+    border-top: 1px solid var(--border);
+}
+
+@media (max-width: 650px) {
+    .employee-form {
+        padding: 18px;
+    }
+
+    .table-card table {
+        min-width: 1050px;
+    }
+}
