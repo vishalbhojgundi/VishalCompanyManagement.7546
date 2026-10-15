@@ -1,10 +1,10 @@
+
 package com.vishal.company.dao;
 
 import com.vishal.company.model.Employee;
 import com.vishal.company.util.DBConnection;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -19,8 +19,7 @@ public class EmployeeDAO {
     public boolean addEmployee(Employee employee) {
 
         String sql = """
-                INSERT INTO employees
-                (
+                INSERT INTO employees (
                     employee_code,
                     first_name,
                     last_name,
@@ -39,41 +38,32 @@ public class EmployeeDAO {
 
         try (
                 Connection connection = DBConnection.getConnection();
-                PreparedStatement statement =
-                        connection.prepareStatement(sql)
+                PreparedStatement statement = connection.prepareStatement(sql)
         ) {
-
             statement.setString(1, employee.getEmployeeCode());
             statement.setString(2, employee.getFirstName());
             statement.setString(3, employee.getLastName());
             statement.setString(4, employee.getEmail());
             statement.setString(5, employee.getPhone());
             statement.setString(6, employee.getGender());
-
-            // Date of birth
             statement.setDate(7, employee.getDateOfBirth());
-
             statement.setInt(8, employee.getDepartmentId());
             statement.setString(9, employee.getDesignation());
-
-            // Joining date
             statement.setDate(10, employee.getJoiningDate());
-
             statement.setDouble(11, employee.getSalary());
             statement.setString(12, employee.getStatus());
 
             return statement.executeUpdate() > 0;
 
         } catch (Exception e) {
-
+            System.err.println("Error adding employee:");
             e.printStackTrace();
             return false;
         }
     }
 
-
     // =========================================================
-    // GET ALL EMPLOYEES
+    // GET ALL EMPLOYEES - NEWEST FIRST
     // =========================================================
 
     public List<Employee> getAllEmployees() {
@@ -97,35 +87,32 @@ public class EmployeeDAO {
                     e.salary,
                     e.status
                 FROM employees e
-                JOIN departments d
+                LEFT JOIN departments d
                     ON e.department_id = d.department_id
-                ORDER BY e.employee_id ASC
+                ORDER BY e.employee_id DESC
                 """;
 
         try (
                 Connection connection = DBConnection.getConnection();
-                PreparedStatement statement =
-                        connection.prepareStatement(sql);
-                ResultSet resultSet =
-                        statement.executeQuery()
+                PreparedStatement statement = connection.prepareStatement(sql);
+                ResultSet resultSet = statement.executeQuery()
         ) {
-
             while (resultSet.next()) {
-
-                Employee employee =
-                        extractEmployee(resultSet);
-
-                employees.add(employee);
+                employees.add(extractEmployee(resultSet));
             }
 
-        } catch (Exception e) {
+            System.out.println(
+                    "EmployeeDAO: fetched " + employees.size()
+                            + " employee records."
+            );
 
+        } catch (Exception e) {
+            System.err.println("Error fetching all employees:");
             e.printStackTrace();
         }
 
         return employees;
     }
-
 
     // =========================================================
     // GET EMPLOYEE BY ID
@@ -150,36 +137,30 @@ public class EmployeeDAO {
                     e.salary,
                     e.status
                 FROM employees e
-                JOIN departments d
+                LEFT JOIN departments d
                     ON e.department_id = d.department_id
                 WHERE e.employee_id = ?
                 """;
 
         try (
                 Connection connection = DBConnection.getConnection();
-                PreparedStatement statement =
-                        connection.prepareStatement(sql)
+                PreparedStatement statement = connection.prepareStatement(sql)
         ) {
-
             statement.setInt(1, employeeId);
 
-            try (ResultSet resultSet =
-                         statement.executeQuery()) {
-
+            try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-
                     return extractEmployee(resultSet);
                 }
             }
 
         } catch (Exception e) {
-
+            System.err.println("Error fetching employee ID " + employeeId + ":");
             e.printStackTrace();
         }
 
         return null;
     }
-
 
     // =========================================================
     // UPDATE EMPLOYEE
@@ -205,10 +186,8 @@ public class EmployeeDAO {
 
         try (
                 Connection connection = DBConnection.getConnection();
-                PreparedStatement statement =
-                        connection.prepareStatement(sql)
+                PreparedStatement statement = connection.prepareStatement(sql)
         ) {
-
             statement.setString(1, employee.getEmployeeCode());
             statement.setString(2, employee.getFirstName());
             statement.setString(3, employee.getLastName());
@@ -219,18 +198,16 @@ public class EmployeeDAO {
             statement.setString(8, employee.getDesignation());
             statement.setDouble(9, employee.getSalary());
             statement.setString(10, employee.getStatus());
-
             statement.setInt(11, employee.getEmployeeId());
 
             return statement.executeUpdate() > 0;
 
         } catch (Exception e) {
-
+            System.err.println("Error updating employee:");
             e.printStackTrace();
             return false;
         }
     }
-
 
     // =========================================================
     // DELETE EMPLOYEE
@@ -245,29 +222,30 @@ public class EmployeeDAO {
 
         try (
                 Connection connection = DBConnection.getConnection();
-                PreparedStatement statement =
-                        connection.prepareStatement(sql)
+                PreparedStatement statement = connection.prepareStatement(sql)
         ) {
-
             statement.setInt(1, employeeId);
 
             return statement.executeUpdate() > 0;
 
         } catch (Exception e) {
-
+            System.err.println("Error deleting employee ID " + employeeId + ":");
             e.printStackTrace();
             return false;
         }
     }
 
-
     // =========================================================
-    // SEARCH EMPLOYEE
+    // SEARCH EMPLOYEES
     // =========================================================
 
     public List<Employee> searchEmployees(String keyword) {
 
         List<Employee> employees = new ArrayList<>();
+
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return employees;
+        }
 
         String sql = """
                 SELECT
@@ -286,7 +264,7 @@ public class EmployeeDAO {
                     e.salary,
                     e.status
                 FROM employees e
-                JOIN departments d
+                LEFT JOIN departments d
                     ON e.department_id = d.department_id
                 WHERE
                     e.employee_code LIKE ?
@@ -295,109 +273,56 @@ public class EmployeeDAO {
                     OR e.email LIKE ?
                     OR e.designation LIKE ?
                     OR d.department_name LIKE ?
-                ORDER BY e.employee_id ASC
+                ORDER BY e.employee_id DESC
                 """;
 
         try (
                 Connection connection = DBConnection.getConnection();
-                PreparedStatement statement =
-                        connection.prepareStatement(sql)
+                PreparedStatement statement = connection.prepareStatement(sql)
         ) {
+            String searchPattern = "%" + keyword.trim() + "%";
 
-            String searchPattern = "%" + keyword + "%";
+            for (int i = 1; i <= 6; i++) {
+                statement.setString(i, searchPattern);
+            }
 
-            statement.setString(1, searchPattern);
-            statement.setString(2, searchPattern);
-            statement.setString(3, searchPattern);
-            statement.setString(4, searchPattern);
-            statement.setString(5, searchPattern);
-            statement.setString(6, searchPattern);
-
-            try (ResultSet resultSet =
-                         statement.executeQuery()) {
-
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-
-                    Employee employee =
-                            extractEmployee(resultSet);
-
-                    employees.add(employee);
+                    employees.add(extractEmployee(resultSet));
                 }
             }
 
         } catch (Exception e) {
-
+            System.err.println("Error searching employees:");
             e.printStackTrace();
         }
 
         return employees;
     }
 
-
     // =========================================================
-    // CONVERT RESULTSET → EMPLOYEE OBJECT
+    // MAP DATABASE ROW TO EMPLOYEE OBJECT
     // =========================================================
 
     private Employee extractEmployee(ResultSet resultSet)
-            throws Exception {
+            throws java.sql.SQLException {
 
         Employee employee = new Employee();
 
-        employee.setEmployeeId(
-                resultSet.getInt("employee_id")
-        );
-
-        employee.setEmployeeCode(
-                resultSet.getString("employee_code")
-        );
-
-        employee.setFirstName(
-                resultSet.getString("first_name")
-        );
-
-        employee.setLastName(
-                resultSet.getString("last_name")
-        );
-
-        employee.setEmail(
-                resultSet.getString("email")
-        );
-
-        employee.setPhone(
-                resultSet.getString("phone")
-        );
-
-        employee.setGender(
-                resultSet.getString("gender")
-        );
-
-        employee.setDateOfBirth(
-                resultSet.getDate("date_of_birth")
-        );
-
-        employee.setDepartmentId(
-                resultSet.getInt("department_id")
-        );
-
-        employee.setDepartmentName(
-                resultSet.getString("department_name")
-        );
-
-        employee.setDesignation(
-                resultSet.getString("designation")
-        );
-
-        employee.setJoiningDate(
-                resultSet.getDate("joining_date")
-        );
-
-        employee.setSalary(
-                resultSet.getDouble("salary")
-        );
-
-        employee.setStatus(
-                resultSet.getString("status")
-        );
+        employee.setEmployeeId(resultSet.getInt("employee_id"));
+        employee.setEmployeeCode(resultSet.getString("employee_code"));
+        employee.setFirstName(resultSet.getString("first_name"));
+        employee.setLastName(resultSet.getString("last_name"));
+        employee.setEmail(resultSet.getString("email"));
+        employee.setPhone(resultSet.getString("phone"));
+        employee.setGender(resultSet.getString("gender"));
+        employee.setDateOfBirth(resultSet.getDate("date_of_birth"));
+        employee.setDepartmentId(resultSet.getInt("department_id"));
+        employee.setDepartmentName(resultSet.getString("department_name"));
+        employee.setDesignation(resultSet.getString("designation"));
+        employee.setJoiningDate(resultSet.getDate("joining_date"));
+        employee.setSalary(resultSet.getDouble("salary"));
+        employee.setStatus(resultSet.getString("status"));
 
         return employee;
     }

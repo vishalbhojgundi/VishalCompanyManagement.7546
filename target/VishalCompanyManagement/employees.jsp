@@ -7,44 +7,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Employee Management | Vishal Technologies</title>
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/style.css">
 
     <style>
-        .employees-page {
-            width: min(1450px, calc(100% - 40px));
-            margin: 32px auto;
+        /* ===== Global page ===== */
+        body {
+            margin: 0;
+            background: #f4f7fc;
+            color: #202c3c;
+            font-family: "Segoe UI", Arial, sans-serif;
         }
 
-        .employees-header {
+        /* ===== Professional header ===== */
+        body > header.site-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 24px;
+            gap: 20px;
+            padding: 18px 4%;
+            background: linear-gradient(120deg, #14213d, #203b64);
+            color: #fff;
+            box-shadow: 0 4px 18px rgba(20, 33, 61, .15);
         }
 
-        .employees-header h2 {
+        .site-header .brand h1 {
+            margin: 0;
+            color: #fff;
+            font-size: 25px;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+        .site-header .brand p {
+            margin: 5px 0 0;
+            color: #d3deef;
+            font-size: 13px;
+        }
+
+        .site-header .main-nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .site-header .main-nav a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 14px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            background: transparent;
+            color: #edf3ff;
+            font-size: 14px;
+            font-weight: 650;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background .2s ease, color .2s ease;
+        }
+
+        .site-header .main-nav a:hover {
+            background: rgba(255, 255, 255, .14);
+            color: #fff;
+        }
+
+        .site-header .main-nav a.active {
+            background: #fff;
+            color: #14213d;
+        }
+
+        /* ===== Main content ===== */
+        .employees-page {
+            width: min(1450px, calc(100% - 48px));
+            margin: 32px auto 44px;
+        }
+
+        .employees-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .employees-heading h2 {
             margin: 0;
             color: #14213d;
-            font-size: 28px;
+            font-size: clamp(26px, 3vw, 34px);
+            font-weight: 800;
+            line-height: 1.3;
         }
 
-        .employees-header p {
-            margin: 6px 0 0;
+        .employees-heading p {
+            margin: 8px 0 0;
             color: #68778c;
+            font-size: 15px;
         }
 
+        /* ===== Buttons ===== */
+        .employees-page .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            min-height: 38px;
+            padding: 9px 13px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: background .2s ease, transform .2s ease;
+        }
+
+        .employees-page .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .employees-page .btn-add {
+            min-height: 44px;
+            padding: 11px 18px;
+            background: #315fce;
+            color: #fff;
+        }
+
+        .employees-page .btn-add:hover {
+            background: #244bb0;
+        }
+
+        .employees-page .btn-edit {
+            background: #eaf1ff;
+            color: #244bb0;
+        }
+
+        .employees-page .btn-edit:hover {
+            background: #dce8ff;
+        }
+
+        .employees-page .btn-delete {
+            background: #dc2626;
+            color: #fff;
+        }
+
+        .employees-page .btn-delete:hover {
+            background: #b91c1c;
+        }
+
+        .employees-page .btn-view {
+            background: #f0f3f8;
+            color: #34445a;
+        }
+
+        .employees-page .btn-view:hover {
+            background: #e1e8f2;
+        }
+
+        /* ===== Employee table card ===== */
         .employees-panel {
             overflow: hidden;
             border: 1px solid #e0e7f0;
-            border-radius: 12px;
-            background: #ffffff;
-            box-shadow: 0 5px 22px rgba(20, 33, 61, 0.06);
+            border-radius: 14px;
+            background: #fff;
+            box-shadow: 0 5px 22px rgba(20, 33, 61, .06);
         }
 
         .employees-panel-heading {
@@ -53,23 +187,26 @@
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 12px;
-            padding: 20px 22px;
+            padding: 21px 25px;
             border-bottom: 1px solid #e0e7f0;
         }
 
         .employees-panel-heading h3 {
             margin: 0;
             color: #14213d;
-            font-size: 18px;
+            font-size: 21px;
+            font-weight: 800;
         }
 
         .employees-count {
-            padding: 5px 11px;
-            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            padding: 7px 13px;
+            border-radius: 25px;
             background: #eaf1ff;
             color: #244bb0;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 750;
         }
 
         .employees-table-wrap {
@@ -81,6 +218,7 @@
             width: 100%;
             min-width: 1050px;
             border-collapse: collapse;
+            background: #fff;
             font-size: 13px;
         }
 
@@ -90,18 +228,19 @@
 
         .employees-table th {
             padding: 15px 16px;
+            border-bottom: 1px solid #e0e7f0;
             color: #243e68;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 750;
             text-align: left;
             white-space: nowrap;
-            border-bottom: 1px solid #e0e7f0;
         }
 
         .employees-table td {
-            padding: 14px 16px;
-            color: #344054;
+            padding: 15px 16px;
             border-bottom: 1px solid #edf0f5;
+            color: #344054;
+            vertical-align: middle;
             white-space: nowrap;
         }
 
@@ -114,23 +253,28 @@
         }
 
         .employee-name {
-            color: #14213d;
-            font-weight: 700;
+            color: #14213d !important;
+            font-weight: 750;
         }
 
         .employee-status {
             display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
+            padding: 6px 10px;
+            border-radius: 25px;
             background: #e9f8ef;
             color: #15803d;
             font-size: 11px;
-            font-weight: 750;
+            font-weight: 800;
         }
 
         .employee-status.inactive {
             background: #fff0f0;
             color: #c62828;
+        }
+
+        .employee-status.other {
+            background: #fff5df;
+            color: #925f08;
         }
 
         .employee-actions {
@@ -139,48 +283,84 @@
             gap: 6px;
         }
 
-        .employee-actions .btn {
-            min-height: 32px;
-            padding: 6px 10px;
-            font-size: 12px;
-            white-space: nowrap;
-        }
-
         .employee-empty {
-            padding: 45px 20px !important;
+            padding: 42px 20px !important;
             color: #68778c !important;
             text-align: center;
             white-space: normal !important;
         }
 
+        /* ===== Footer ===== */
         .employees-footer {
-            padding: 18px;
-            color: #68778c;
-            font-size: 12px;
+            padding: 22px 20px;
+            margin-top: 40px;
+            background: #14213d;
+            color: #d3deef;
+            font-size: 13px;
             text-align: center;
         }
 
-        @media (max-width: 650px) {
-            .employees-page {
-                width: calc(100% - 24px);
-                margin: 20px auto;
+        /* ===== Responsive layout ===== */
+        @media (max-width: 800px) {
+            body > header.site-header {
+                align-items: flex-start;
+                flex-direction: column;
+                padding: 18px 22px;
             }
 
-            .employees-header {
-                align-items: flex-start;
+            .site-header .main-nav {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .site-header .main-nav a {
+                padding: 9px 11px;
+            }
+
+            .employees-page {
+                width: calc(100% - 28px);
+                margin-top: 23px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .employees-heading {
+                align-items: stretch;
                 flex-direction: column;
             }
 
-            .employees-header h2 {
-                font-size: 23px;
+            .employees-heading h2 {
+                font-size: 25px;
             }
 
-            .employees-header .btn {
+            .employees-heading .btn-add {
                 width: 100%;
             }
 
             .employees-panel-heading {
-                padding: 16px;
+                padding: 18px;
+            }
+        }
+
+        @media print {
+            body > header.site-header,
+            .employees-heading .btn-add,
+            .employee-actions,
+            .employees-footer {
+                display: none !important;
+            }
+
+            body {
+                background: #fff;
+            }
+
+            .employees-page {
+                width: 100%;
+                margin: 0;
+            }
+
+            .employees-panel {
+                box-shadow: none;
             }
         }
     </style>
@@ -188,35 +368,46 @@
 
 <body>
 
-<header>
-    <div>
+<header class="site-header">
+    <div class="brand">
         <h1>Vishal Technologies</h1>
         <p>Company Management System</p>
     </div>
 
-    <nav aria-label="Main navigation">
+    <nav class="main-nav" aria-label="Main navigation">
         <a href="${pageContext.request.contextPath}/">Home</a>
-        <a href="${pageContext.request.contextPath}/employees">Employees</a>
-        <a href="${pageContext.request.contextPath}/add-employee">Add Employee</a>
-        <a href="${pageContext.request.contextPath}/searchEmployee.jsp">Search</a>
+
+        <a class="active"
+           href="${pageContext.request.contextPath}/employees">
+            Employees
+        </a>
+
+        <a href="${pageContext.request.contextPath}/addEmployee.jsp">
+            Add Employee
+        </a>
+
+        <a href="${pageContext.request.contextPath}/searchEmployee.jsp">
+            Search
+        </a>
     </nav>
 </header>
 
 <main class="employees-page">
 
-    <div class="employees-header">
+    <section class="employees-heading">
         <div>
             <h2>Employee Management</h2>
             <p>View and manage employee information at Vishal Technologies.</p>
         </div>
 
-        <a class="btn"
+        <a class="btn btn-add"
            href="${pageContext.request.contextPath}/add-employee">
             + Add Employee
         </a>
-    </div>
+    </section>
 
     <section class="employees-panel">
+
         <div class="employees-panel-heading">
             <h3>Employee Directory</h3>
             <span class="employees-count">Employee Records</span>
@@ -254,9 +445,21 @@
                         <td>₹<c:out value="${employee.salary}"/></td>
 
                         <td>
-                            <span class="employee-status ${employee.status eq 'ACTIVE' ? '' : 'inactive'}">
-                                <c:out value="${employee.status}"/>
-                            </span>
+                            <c:choose>
+                                <c:when test="${employee.status eq 'ACTIVE'}">
+                                    <span class="employee-status">ACTIVE</span>
+                                </c:when>
+
+                                <c:when test="${employee.status eq 'INACTIVE'}">
+                                    <span class="employee-status inactive">INACTIVE</span>
+                                </c:when>
+
+                                <c:otherwise>
+                                    <span class="employee-status other">
+                                        <c:out value="${employee.status}"/>
+                                    </span>
+                                </c:otherwise>
+                            </c:choose>
                         </td>
 
                         <td>
@@ -272,7 +475,7 @@
                                     Delete
                                 </a>
 
-                                <a class="btn btn-secondary"
+                                <a class="btn btn-view"
                                    href="${pageContext.request.contextPath}/employee-details?id=${employee.employeeId}">
                                     View
                                 </a>
