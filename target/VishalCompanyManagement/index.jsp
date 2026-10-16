@@ -1,229 +1,212 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Vishal Technologies | Company Management System</title>
-
+    <title>Dashboard | Vishal Technologies</title>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/style.css">
-
-    <style>
-        .dashboard-container {
-            max-width: 1200px;
-            margin: 35px auto;
-            padding: 20px;
-        }
-
-        .dashboard-header {
-            background: #172338;
-            color: #ffffff;
-            padding: 35px 25px;
-            border-radius: 12px;
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .dashboard-header h1 {
-            margin: 0 0 12px;
-            font-size: 32px;
-        }
-
-        .dashboard-header p {
-            margin: 8px 0;
-            color: #e1e8f2;
-        }
-
-        .dashboard-section h2 {
-            color: #172338;
-            margin-bottom: 22px;
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 22px;
-        }
-
-        .dashboard-card {
-            background: #ffffff;
-            border: 1px solid #e0e6ef;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .dashboard-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.10);
-        }
-
-        .dashboard-card h3 {
-            color: #173b67;
-            margin-top: 0;
-            margin-bottom: 12px;
-            font-size: 21px;
-        }
-
-        .dashboard-card p {
-            color: #596579;
-            line-height: 1.7;
-            min-height: 50px;
-        }
-
-        .dashboard-button {
-            display: inline-block;
-            background: #2864e8;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 11px 18px;
-            border-radius: 7px;
-            font-weight: 600;
-            margin-top: 8px;
-            transition: background 0.2s;
-        }
-
-        .dashboard-button:hover {
-            background: #174bbd;
-            color: #ffffff;
-        }
-
-        .dashboard-footer {
-            margin-top: 40px;
-            padding: 20px;
-            text-align: center;
-            color: #667085;
-            border-top: 1px solid #e0e6ef;
-        }
-
-        @media (max-width: 650px) {
-            .dashboard-container {
-                margin: 15px auto;
-                padding: 12px;
-            }
-
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .dashboard-header h1 {
-                font-size: 25px;
-            }
-
-            .dashboard-card {
-                padding: 20px;
-            }
-        }
-    </style>
 </head>
-
 <body>
 
-<div class="dashboard-container">
+<div class="app-layout">
 
-    <!-- Company Header -->
-    <header class="dashboard-header">
-        <h1>Vishal Technologies</h1>
-        <p>Company Management System</p>
-        <p>Manage employees, departments, and attendance in one place.</p>
-    </header>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <a class="brand" href="${pageContext.request.contextPath}/">
+            <span class="brand-logo">VT</span>
+            <span class="brand-text">
+                <strong>Vishal Technologies</strong>
+                <small>Company Portal</small>
+            </span>
+        </a>
 
-    <!-- Dashboard Modules -->
-    <main class="dashboard-section">
+        <p class="sidebar-label">MAIN MENU</p>
 
-        <h2>Management Dashboard</h2>
+        <nav class="sidebar-nav" aria-label="Main navigation">
+            <a class="nav-link active"
+               href="${pageContext.request.contextPath}/">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
 
-        <div class="dashboard-grid">
+            <a class="nav-link"
+               href="${pageContext.request.contextPath}/employees">
+                <span class="nav-icon">♙</span>
+                Employees
+            </a>
 
-            <!-- Employee Management -->
-            <section class="dashboard-card">
-                <h3>Employee Management</h3>
+            <a class="nav-link"
+               href="${pageContext.request.contextPath}/add-employee">
+                <span class="nav-icon">＋</span>
+                Add Employee
+            </a>
 
-                <p>
-                    View employee records, personal information,
-                    department details, and employment status.
-                </p>
+            <a class="nav-link"
+               href="${pageContext.request.contextPath}/searchEmployee.jsp">
+                <span class="nav-icon">⌕</span>
+                Search Employee
+            </a>
 
-                <a class="dashboard-button"
-                   href="${pageContext.request.contextPath}/employees">
-                    View Employees
-                </a>
-            </section>
+            <a class="nav-link"
+               href="${pageContext.request.contextPath}/departments">
+                <span class="nav-icon">▦</span>
+                Departments
+            </a>
 
-            <!-- Add Employee -->
-            <section class="dashboard-card">
-                <h3>Add Employee</h3>
+            <a class="nav-link"
+               href="${pageContext.request.contextPath}/attendance">
+                <span class="nav-icon">◷</span>
+                Attendance
+            </a>
+        </nav>
 
-                <p>
-                    Register a new employee and enter their
-                    company and employment details.
-                </p>
-
-                <a class="dashboard-button"
-                   href="${pageContext.request.contextPath}/add-employee">
-                    Add Employee
-                </a>
-            </section>
-
-            <!-- Search Employee -->
-            <section class="dashboard-card">
-                <h3>Search Employee</h3>
-
-                <p>
-                    Search for an employee and find their
-                    information quickly.
-                </p>
-
-                <a class="dashboard-button"
-                   href="${pageContext.request.contextPath}/searchEmployee.jsp">
-                    Search Employee
-                </a>
-            </section>
-
-            <!-- Department Management -->
-            <section class="dashboard-card">
-                <h3>Department Management</h3>
-
-                <p>
-                    View, add, edit, and delete departments
-                    within Vishal Technologies.
-                </p>
-
-                <a class="dashboard-button"
-                   href="${pageContext.request.contextPath}/departments">
-                    Manage Departments
-                </a>
-            </section>
-
-            <!-- Attendance Management -->
-            <section class="dashboard-card">
-                <h3>Attendance Management</h3>
-
-                <p>
-                    Mark employee attendance, record check-in
-                    and check-out times, and view daily summaries.
-                </p>
-
-                <a class="dashboard-button"
-                   href="${pageContext.request.contextPath}/attendance">
-                    Manage Attendance
-                </a>
-            </section>
-
+        <div class="sidebar-bottom">
+            <div class="sidebar-help">
+                <strong>Company Workspace</strong>
+                <p>Manage your company operations in one place.</p>
+            </div>
+            <small>Vishal Technologies</small>
         </div>
+    </aside>
 
-    </main>
+    <!-- Main application area -->
+    <div class="main-area">
 
-    <!-- Footer -->
-    <footer class="dashboard-footer">
-        <p>&copy; 2026 Vishal Technologies. All rights reserved.</p>
-    </footer>
+        <!-- Header -->
+        <header class="top-header">
+            <div>
+                <p class="eyebrow">COMPANY MANAGEMENT SYSTEM</p>
+                <h1>Management Dashboard</h1>
+            </div>
 
+            <div class="header-profile">
+                <span class="profile-avatar">VT</span>
+                <div>
+                    <strong>Administrator</strong>
+                    <small>Management Portal</small>
+                </div>
+            </div>
+        </header>
+
+        <!-- Article / main content -->
+        <main class="page-content">
+
+            <article class="welcome-panel">
+                <div>
+                    <span class="welcome-tag">WELCOME</span>
+                    <h2>Welcome to Vishal Technologies</h2>
+                    <p>
+                        Manage employees, departments, and attendance
+                        through your company management workspace.
+                    </p>
+                </div>
+                <div class="welcome-mark" aria-hidden="true">VT</div>
+            </article>
+
+            <section class="section-heading">
+                <div>
+                    <h2>Management Modules</h2>
+                    <p>Select a module to continue your work.</p>
+                </div>
+            </section>
+
+            <section class="dashboard-grid"
+                     aria-label="Management modules">
+
+                <article class="dashboard-card">
+                    <div class="card-top">
+                        <span class="card-icon employee-icon">EM</span>
+                        <span class="card-category">PEOPLE</span>
+                    </div>
+                    <h3>Employee Management</h3>
+                    <p>
+                        View employee records, personal information,
+                        designations, and employment status.
+                    </p>
+                    <a class="card-action"
+                       href="${pageContext.request.contextPath}/employees">
+                        View Employees <span>→</span>
+                    </a>
+                </article>
+
+                <article class="dashboard-card">
+                    <div class="card-top">
+                        <span class="card-icon add-icon">＋</span>
+                        <span class="card-category">PEOPLE</span>
+                    </div>
+                    <h3>Add Employee</h3>
+                    <p>
+                        Register new employees and enter their
+                        company and employment details.
+                    </p>
+                    <a class="card-action"
+                       href="${pageContext.request.contextPath}/add-employee">
+                        Add Employee <span>→</span>
+                    </a>
+                </article>
+
+                <article class="dashboard-card">
+                    <div class="card-top">
+                        <span class="card-icon search-icon">S</span>
+                        <span class="card-category">DIRECTORY</span>
+                    </div>
+                    <h3>Search Employee</h3>
+                    <p>
+                        Find employee records quickly using
+                        the existing employee search feature.
+                    </p>
+                    <a class="card-action"
+                       href="${pageContext.request.contextPath}/searchEmployee.jsp">
+                        Search Employees <span>→</span>
+                    </a>
+                </article>
+
+                <article class="dashboard-card">
+                    <div class="card-top">
+                        <span class="card-icon department-icon">DP</span>
+                        <span class="card-category">ORGANIZATION</span>
+                    </div>
+                    <h3>Department Management</h3>
+                    <p>
+                        View, add, edit, and maintain
+                        your company department records.
+                    </p>
+                    <a class="card-action"
+                       href="${pageContext.request.contextPath}/departments">
+                        Manage Departments <span>→</span>
+                    </a>
+                </article>
+
+                <article class="dashboard-card">
+                    <div class="card-top">
+                        <span class="card-icon attendance-icon">AT</span>
+                        <span class="card-category">TIME & ATTENDANCE</span>
+                    </div>
+                    <h3>Attendance Management</h3>
+                    <p>
+                        Record employee attendance, check-in times,
+                        check-out times, and daily summaries.
+                    </p>
+                    <a class="card-action"
+                       href="${pageContext.request.contextPath}/attendance">
+                        Manage Attendance <span>→</span>
+                    </a>
+                </article>
+
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <span>© 2026 Vishal Technologies</span>
+            <span>Company Management System</span>
+        </footer>
+
+    </div>
 </div>
 
 </body>
