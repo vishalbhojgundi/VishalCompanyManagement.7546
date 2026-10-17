@@ -76,6 +76,9 @@
     <div class="main-area">
 
         <!-- Header -->
+        <a href="${pageContext.request.contextPath}/admin-login">
+            Admin Login
+        </a>
         <header class="top-header">
             <div>
                 <p class="eyebrow">COMPANY MANAGEMENT SYSTEM</p>
