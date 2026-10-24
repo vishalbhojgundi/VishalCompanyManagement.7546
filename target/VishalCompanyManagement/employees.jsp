@@ -454,23 +454,33 @@
                         </td>
 
                         <td>
-                            <div class="employee-actions">
-                                <a class="btn btn-edit"
-                                   href="${pageContext.request.contextPath}/edit-employee?id=${employee.employeeId}">
-                                    Edit
-                                </a>
 
-                                <a class="btn btn-delete"
-                                   href="${pageContext.request.contextPath}/delete-employee?id=${employee.employeeId}"
-                                   onclick="return confirm('Are you sure you want to delete this employee?');">
-                                    Delete
-                                </a>
+<div class="employee-actions">
 
-                                <a class="btn btn-view"
-                                   href="${pageContext.request.contextPath}/employee-details?id=${employee.employeeId}">
-                                    View
-                                </a>
-                            </div>
+    <!-- Edit and Delete are visible only to a logged-in admin -->
+    <c:if test="${not empty sessionScope.adminId}">
+
+        <a class="btn btn-edit"
+           href="${pageContext.request.contextPath}/edit-employee?id=${employee.employeeId}">
+            Edit
+        </a>
+
+        <a class="btn btn-delete"
+           href="${pageContext.request.contextPath}/delete-employee?id=${employee.employeeId}"
+           onclick="return confirm('Are you sure you want to delete this employee?');">
+            Delete
+        </a>
+
+    </c:if>
+
+    <!-- View is available to everyone -->
+    <a class="btn btn-view"
+       href="${pageContext.request.contextPath}/employee-details?id=${employee.employeeId}">
+        View
+    </a>
+
+</div>
+
                         </td>
                     </tr>
                 </c:forEach>
