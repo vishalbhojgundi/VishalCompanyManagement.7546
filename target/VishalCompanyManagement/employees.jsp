@@ -382,10 +382,6 @@
             Employees
         </a>
 
-        <a href="${pageContext.request.contextPath}/addEmployee.jsp">
-            Add Employee
-        </a>
-
         <a href="${pageContext.request.contextPath}/searchEmployee.jsp">
             Search
         </a>
@@ -399,11 +395,6 @@
             <h2>Employee Management</h2>
             <p>View and manage employee information at Vishal Technologies.</p>
         </div>
-
-        <a class="btn btn-add"
-           href="${pageContext.request.contextPath}/add-employee">
-            + Add Employee
-        </a>
     </section>
 
     <section class="employees-panel">

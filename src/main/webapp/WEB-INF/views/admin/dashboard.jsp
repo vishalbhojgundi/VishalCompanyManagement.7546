@@ -293,13 +293,13 @@
             background: #194bb8;
         }
 
-        .admin-button.green {
-            background: #16834a;
-        }
+       .admin-button.green {
+           background: #2864e8;
+       }
 
-        .admin-button.green:hover {
-            background: #116638;
-        }
+       .admin-button.green:hover {
+           background: #194bb8;
+       }
 
         .admin-footer {
             padding: 20px 30px;
