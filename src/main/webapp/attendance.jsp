@@ -7,21 +7,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Attendance Management | Vishal Technologies</title>
 
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/style.css">
 
     <style>
-        /* ===== Page layout ===== */
         .container {
             max-width: 1500px;
             margin: 0 auto;
             padding: 24px 30px;
         }
 
-        /* ===== Company header ===== */
+        /* Company header */
         .app-header {
             display: flex;
             align-items: center;
@@ -85,7 +83,7 @@
             font-size: 14px;
         }
 
-        /* ===== Main navigation ===== */
+        /* Navigation */
         .app-nav {
             display: flex;
             align-items: center;
@@ -127,11 +125,11 @@
             line-height: 1;
         }
 
-        /* ===== Main content ===== */
         main {
             min-width: 0;
         }
 
+        /* Page heading and action buttons */
         .attendance-actions {
             display: flex;
             align-items: center;
@@ -147,6 +145,51 @@
             font-size: 26px;
         }
 
+        .attendance-action-buttons {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .attendance-action-buttons .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 11px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .attendance-action-buttons .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .attendance-action-buttons .btn-primary {
+            background: #315fd1;
+            color: #ffffff;
+            border: 1px solid #315fd1;
+        }
+
+        .attendance-action-buttons .btn-primary:hover {
+            background: #244db4;
+        }
+
+        .attendance-action-buttons .btn-bulk {
+            background: #ffffff;
+            color: #315fd1;
+            border: 1px solid #315fd1;
+        }
+
+        .attendance-action-buttons .btn-bulk:hover {
+            background: #edf4ff;
+        }
+
+        /* Date filter */
         .date-filter {
             display: flex;
             align-items: center;
@@ -170,7 +213,7 @@
             font: inherit;
         }
 
-        /* ===== Summary cards ===== */
+        /* Summary cards */
         .attendance-summary {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -199,7 +242,7 @@
             font-size: 30px;
         }
 
-        /* ===== Attendance table ===== */
+        /* Attendance table */
         .table-container {
             width: 100%;
             overflow-x: auto;
@@ -254,7 +297,7 @@
             font-weight: 700;
         }
 
-        /* ===== Messages and links ===== */
+        /* Messages */
         .success {
             padding: 12px 16px;
             border: 1px solid #a7e4bf;
@@ -283,7 +326,7 @@
             text-decoration: underline;
         }
 
-        /* ===== Responsive design ===== */
+        /* Responsive design */
         @media (max-width: 900px) {
             .attendance-summary {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -341,6 +384,14 @@
                 font-size: 22px;
             }
 
+            .attendance-action-buttons {
+                width: 100%;
+            }
+
+            .attendance-action-buttons .btn {
+                flex: 1 1 auto;
+            }
+
             .date-filter {
                 align-items: stretch;
             }
@@ -366,7 +417,6 @@
 </head>
 
 <body>
-
 <div class="container">
 
     <!-- Company header -->
@@ -386,7 +436,7 @@
         </div>
     </header>
 
-    <!-- Main navigation: only one navigation bar -->
+    <!-- Main navigation -->
     <nav class="app-nav" aria-label="Main navigation">
         <a href="${pageContext.request.contextPath}/">
             <span class="nav-icon" aria-hidden="true">&#9632;</span>
@@ -428,14 +478,21 @@
             </p>
         </c:if>
 
-        <!-- Page actions -->
+        <!-- Attendance actions -->
         <div class="attendance-actions">
             <h2>Attendance Records</h2>
 
-            <a class="btn btn-primary"
-               href="${pageContext.request.contextPath}/mark-attendance">
-                + Mark Attendance
-            </a>
+            <div class="attendance-action-buttons">
+                <a class="btn btn-primary"
+                   href="${pageContext.request.contextPath}/mark-attendance">
+                    + Mark Attendance
+                </a>
+
+                <a class="btn btn-bulk"
+                   href="${pageContext.request.contextPath}/admin/bulk-attendance">
+                    + Bulk Attendance
+                </a>
+            </div>
         </div>
 
         <!-- Date filter -->
@@ -490,53 +547,53 @@
         <div class="table-container">
             <table>
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Employee Code</th>
-                        <th>Employee Name</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Check-in</th>
-                        <th>Check-out</th>
-                        <th>Remarks</th>
-                        <th>Action</th>
-                    </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Employee Code</th>
+                    <th>Employee Name</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Remarks</th>
+                    <th>Action</th>
+                </tr>
                 </thead>
 
                 <tbody>
-                    <c:forEach var="a" items="${records}">
-                        <tr>
-                            <td><c:out value="${a.attendanceId}"/></td>
-                            <td><c:out value="${a.employeeCode}"/></td>
-                            <td><c:out value="${a.employeeName}"/></td>
-                            <td><c:out value="${a.attendanceDate}"/></td>
+                <c:forEach var="a" items="${records}">
+                    <tr>
+                        <td><c:out value="${a.attendanceId}"/></td>
+                        <td><c:out value="${a.employeeCode}"/></td>
+                        <td><c:out value="${a.employeeName}"/></td>
+                        <td><c:out value="${a.attendanceDate}"/></td>
 
-                            <td>
-                                <span class="status-badge">
-                                    <c:out value="${a.status}"/>
-                                </span>
-                            </td>
+                        <td>
+                            <span class="status-badge">
+                                <c:out value="${a.status}"/>
+                            </span>
+                        </td>
 
-                            <td><c:out value="${a.checkIn}" default="—"/></td>
-                            <td><c:out value="${a.checkOut}" default="—"/></td>
-                            <td><c:out value="${a.remarks}" default="—"/></td>
+                        <td><c:out value="${a.checkIn}" default="—"/></td>
+                        <td><c:out value="${a.checkOut}" default="—"/></td>
+                        <td><c:out value="${a.remarks}" default="—"/></td>
 
-                            <td>
-                                <a class="btn btn-edit"
-                                   href="${pageContext.request.contextPath}/edit-attendance?id=${a.attendanceId}">
-                                    Edit
-                                </a>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                        <td>
+                            <a class="btn btn-edit"
+                               href="${pageContext.request.contextPath}/edit-attendance?id=${a.attendanceId}">
+                                Edit
+                            </a>
+                        </td>
+                    </tr>
+                </c:forEach>
 
-                    <c:if test="${empty records}">
-                        <tr>
-                            <td colspan="9">
-                                No attendance records found for this date.
-                            </td>
-                        </tr>
-                    </c:if>
+                <c:if test="${empty records}">
+                    <tr>
+                        <td colspan="9">
+                            No attendance records found for this date.
+                        </td>
+                    </tr>
+                </c:if>
                 </tbody>
             </table>
         </div>
@@ -548,6 +605,5 @@
 
     </main>
 </div>
-
 </body>
 </html>

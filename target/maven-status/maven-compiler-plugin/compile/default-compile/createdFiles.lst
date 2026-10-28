@@ -8,6 +8,7 @@ com\vishal\company\model\Attendance.class
 com\vishal\company\controller\EmployeeSearchServlet.class
 com\vishal\company\controller\DepartmentListServlet.class
 com\vishal\company\filter\AdminAuthFilter.class
+com\vishal\company\controller\BulkAttendanceServlet.class
 com\vishal\company\model\Employee.class
 com\vishal\company\model\Admin.class
 com\vishal\company\model\Department.class

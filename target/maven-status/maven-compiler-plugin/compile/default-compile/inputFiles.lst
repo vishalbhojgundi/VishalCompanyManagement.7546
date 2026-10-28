@@ -4,6 +4,7 @@ D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vi
 D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\AttendanceEditServlet.java
 D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\AttendanceListServlet.java
 D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\AttendanceSaveServlet.java
+D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\BulkAttendanceServlet.java
 D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\DatabaseTestServlet.java
 D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\DepartmentAddServlet.java
 D:\Projects\VishalCompanyManagement\VishalCompanyManagement\src\main\java\com\vishal\company\controller\DepartmentDeleteServlet.java

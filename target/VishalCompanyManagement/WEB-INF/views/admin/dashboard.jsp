@@ -14,6 +14,22 @@
           href="${pageContext.request.contextPath}/css/style.css">
 
     <style>
+
+.module-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.module-actions .admin-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 0;
+}
+
         * {
             box-sizing: border-box;
         }
@@ -531,24 +547,31 @@
 
                     </article>
 
-                    <!-- Attendance Management -->
-                    <article class="admin-module">
 
-                        <div class="module-icon attendance">AT</div>
+<!-- Attendance Management -->
+<article class="admin-module">
+    <div class="module-icon attendance">AT</div>
 
-                        <h3>Attendance Management</h3>
+    <h3>Attendance Management</h3>
 
-                        <p>
-                            Mark employee attendance and review
-                            attendance records and daily status.
-                        </p>
+    <p>
+        Mark individual employee attendance, review attendance records,
+        or mark attendance for all active employees at once.
+    </p>
 
-                        <a class="admin-button"
-                           href="${pageContext.request.contextPath}/attendance">
-                            Open Attendance <span>→</span>
-                        </a>
+    <div class="module-actions">
+        <a class="admin-button"
+           href="${pageContext.request.contextPath}/attendance">
+            Open Attendance <span>→</span>
+        </a>
 
-                    </article>
+        <a class="admin-button"
+           href="${pageContext.request.contextPath}/admin/bulk-attendance">
+            Bulk Attendance <span>→</span>
+        </a>
+    </div>
+</article>
+
 
                 </div>
 
