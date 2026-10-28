@@ -14,22 +14,6 @@
           href="${pageContext.request.contextPath}/css/style.css">
 
     <style>
-
-.module-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 18px;
-}
-
-.module-actions .admin-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 0;
-}
-
         * {
             box-sizing: border-box;
         }
@@ -69,6 +53,14 @@
             margin-bottom: 28px;
         }
 
+        .sidebar-label {
+            padding: 0 10px;
+            color: #9eafc9;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
         .admin-sidebar nav a {
             display: block;
             padding: 12px;
@@ -81,14 +73,6 @@
         .admin-sidebar nav a.active {
             background: #2864e8;
             color: #ffffff;
-        }
-
-        .sidebar-label {
-            padding: 0 10px;
-            color: #9eafc9;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 1px;
         }
 
         .logout-form {
@@ -214,7 +198,7 @@
             font-size: 13px;
         }
 
-        /* Management cards */
+        /* Management section */
         .section-heading {
             margin: 0 0 18px;
         }
@@ -297,25 +281,28 @@
         .admin-button {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
             padding: 11px 15px;
             background: #2864e8;
             color: #ffffff !important;
+            border: none;
             border-radius: 7px;
             font-weight: 700;
+            transition: background .2s;
         }
 
         .admin-button:hover {
             background: #194bb8;
         }
 
-       .admin-button.green {
-           background: #2864e8;
-       }
+        .admin-button.green {
+            background: #2864e8;
+        }
 
-       .admin-button.green:hover {
-           background: #194bb8;
-       }
+        .admin-button.green:hover {
+            background: #194bb8;
+        }
 
         .admin-footer {
             padding: 20px 30px;
@@ -359,6 +346,10 @@
 
             .welcome-logo {
                 display: none;
+            }
+
+            .admin-footer {
+                padding: 18px;
             }
         }
     </style>
@@ -450,9 +441,11 @@
 
                 <article class="admin-stat">
                     <p>Total Employees</p>
+
                     <strong>
                         <c:out value="${employeeCount}"/>
                     </strong>
+
                     <span class="stat-description">
                         Employee records in the system
                     </span>
@@ -460,9 +453,11 @@
 
                 <article class="admin-stat">
                     <p>Total Departments</p>
+
                     <strong>
                         <c:out value="${departmentCount}"/>
                     </strong>
+
                     <span class="stat-description">
                         Departments in the company
                     </span>
@@ -470,9 +465,11 @@
 
                 <article class="admin-stat">
                     <p>Attendance Records Today</p>
+
                     <strong>
                         <c:out value="${attendanceToday}"/>
                     </strong>
+
                     <span class="stat-description">
                         Records entered for today
                     </span>
@@ -480,7 +477,7 @@
 
             </section>
 
-            <!-- Admin-only management options -->
+            <!-- Management options -->
             <section aria-labelledby="manage-heading">
 
                 <div class="section-heading">
@@ -490,7 +487,7 @@
 
                 <div class="admin-modules">
 
-                    <!-- Employee list -->
+                    <!-- Employee Management -->
                     <article class="admin-module">
 
                         <div class="module-icon">EM</div>
@@ -547,31 +544,26 @@
 
                     </article>
 
+                    <!-- Attendance Management -->
+                    <article class="admin-module">
 
-<!-- Attendance Management -->
-<article class="admin-module">
-    <div class="module-icon attendance">AT</div>
+                        <div class="module-icon attendance">AT</div>
 
-    <h3>Attendance Management</h3>
+                        <h3>Attendance Management</h3>
 
-    <p>
-        Mark individual employee attendance, review attendance records,
-        or mark attendance for all active employees at once.
-    </p>
+                        <p>
+                            Mark individual employee attendance, review
+                            attendance records, or mark attendance for all
+                            active employees at once.
+                        </p>
 
-    <div class="module-actions">
-        <a class="admin-button"
-           href="${pageContext.request.contextPath}/attendance">
-            Open Attendance <span>→</span>
-        </a>
+                        <!-- Only one button on the dashboard -->
+                        <a class="admin-button"
+                           href="${pageContext.request.contextPath}/attendance">
+                            Open Attendance <span>→</span>
+                        </a>
 
-        <a class="admin-button"
-           href="${pageContext.request.contextPath}/admin/bulk-attendance">
-            Bulk Attendance <span>→</span>
-        </a>
-    </div>
-</article>
-
+                    </article>
 
                 </div>
 
