@@ -1,5 +1,6 @@
 
 package com.vishal.company.dao;
+import java.util.Set;
 
 import com.vishal.company.model.Attendance;
 import com.vishal.company.util.DBConnection;
@@ -164,4 +165,126 @@ public class AttendanceDAO {
 
         return a;
     }
+
+    public List<Attendance> getEmployeesForBulkAttendance(Date date)
+            throws SQLException {
+
+        List<Attendance> list = new ArrayList<>();
+
+        String sql = """
+            SELECT e.employee_id,
+                   e.employee_code,
+                   CONCAT(e.first_name, ' ',
+                          COALESCE(e.last_name, '')) AS employee_name,
+                   a.status,
+                   a.remarks
+            FROM employees e
+            LEFT JOIN attendance a
+                ON a.employee_id = e.employee_id
+               AND a.attendance_date = ?
+            WHERE e.status = 'ACTIVE'
+            ORDER BY e.employee_id
+            """;
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setDate(1, date);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Attendance a = new Attendance();
+
+                    a.setEmployeeId(rs.getInt("employee_id"));
+                    a.setEmployeeCode(rs.getString("employee_code"));
+                    a.setEmployeeName(rs.getString("employee_name"));
+                    a.setAttendanceDate(date);
+                    a.setStatus(rs.getString("status"));
+                    a.setRemarks(rs.getString("remarks"));
+
+                    list.add(a);
+                }
+            }
+        }
+
+        return list;
+    }
+
+    public void saveBulkAttendance(Date date, List<Attendance> entries)
+            throws SQLException {
+
+        String sql = """
+            INSERT INTO attendance
+                (employee_id, attendance_date, status, remarks)
+            VALUES (?, ?, ?, ?)
+            ON DUPLICATE KEY UPDATE
+                status = VALUES(status),
+                remarks = VALUES(remarks)
+            """;
+
+        Set<Integer> submittedIds = new java.util.HashSet<>();
+
+        for (Attendance a : entries) {
+            if (a.getEmployeeId() <= 0
+                    || !Set.of("PRESENT", "ABSENT", "LEAVE", "HALF DAY")
+                    .contains(a.getStatus())) {
+                throw new SQLException("Invalid bulk attendance data.");
+            }
+
+            if (!submittedIds.add(a.getEmployeeId())) {
+                throw new SQLException("Duplicate employee in submission.");
+            }
+        }
+
+        try (Connection con = DBConnection.getConnection()) {
+            con.setAutoCommit(false);
+
+            try {
+                // Confirm the submitted list matches the active employees.
+                Set<Integer> activeIds = new java.util.HashSet<>();
+
+                String employeeSql = """
+                    SELECT employee_id
+                    FROM employees
+                    WHERE status = 'ACTIVE'
+                    FOR UPDATE
+                    """;
+
+                try (PreparedStatement employeePs =
+                             con.prepareStatement(employeeSql);
+                     ResultSet rs = employeePs.executeQuery()) {
+
+                    while (rs.next()) {
+                        activeIds.add(rs.getInt("employee_id"));
+                    }
+                }
+
+                if (!activeIds.equals(submittedIds)) {
+                    throw new SQLException(
+                            "Employee list changed. Reload and try again.");
+                }
+
+                try (PreparedStatement ps = con.prepareStatement(sql)) {
+                    for (Attendance a : entries) {
+                        ps.setInt(1, a.getEmployeeId());
+                        ps.setDate(2, date);
+                        ps.setString(3, a.getStatus());
+                        ps.setString(4, a.getRemarks());
+                        ps.addBatch();
+                    }
+
+                    ps.executeBatch();
+                }
+
+                con.commit();
+
+            } catch (SQLException | RuntimeException e) {
+                con.rollback();
+                throw e;
+            } finally {
+                con.setAutoCommit(true);
+            }
+        }
+    }
+
 }
