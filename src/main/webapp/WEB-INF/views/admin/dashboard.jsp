@@ -474,6 +474,27 @@
 
                 <div class="admin-modules">
 
+
+<!-- Bulk Attendance -->
+<article class="admin-module">
+
+    <div class="module-icon attendance">BA</div>
+
+    <h3>Bulk Attendance</h3>
+
+    <p>
+        Mark attendance for all active employees at once.
+        Select a date and save all attendance records together.
+    </p>
+
+    <a class="admin-button"
+       href="${pageContext.request.contextPath}/admin/bulk-attendance">
+        Open Bulk Attendance <span>→</span>
+    </a>
+
+</article>
+
+
                     <!-- Employee list -->
                     <article class="admin-module">
 
